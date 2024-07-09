@@ -1,15 +1,22 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import './Banner.css';
-import Arrow from '../../assets/Arrow'
+import Arrow from '../../assets/Arrow';
+import CategoriesDropdown from './CategoriesDropdown';
+
 function Banner() {
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const toggleDropdown = () => {
+    setShowDropdown(prevState => !prevState);
+  };
+
   return (
     <div className="bannerParentDiv">
       <div className="bannerChildDiv">
         <div className="menuBar">
-          <div className="categoryMenu">
+          <div className="categoryMenu" onClick={toggleDropdown}>
             <span>ALL CATEGORIES</span>
-            <Arrow></Arrow> 
+            <Arrow />
           </div>
           <div className="otherQuickOptions">
             <span>Cars</span>
@@ -21,14 +28,11 @@ function Banner() {
             <span>For Rent: House & Apart...</span>
           </div>
         </div>
+        {showDropdown && <CategoriesDropdown />}
         <div className="banner">
-          <img
-            src="../../../Images/banner copy.png"
-            alt=""
-          />
+          <img src="../../../Images/banner copy.png" alt="" />
         </div>
       </div>
-      
     </div>
   );
 }

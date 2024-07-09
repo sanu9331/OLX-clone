@@ -94,8 +94,7 @@
   margin-right: 5px;
 }
 
-.language svg {
-}
+.language svg {}
 
 .span {
   text-decoration: none;
@@ -112,7 +111,7 @@
   height: 2px;
 }
 
-.loginPage a{
+.loginPage a {
   text-decoration: none;
 }
 
@@ -136,6 +135,7 @@
 .sellMenu .right {
   fill: #3a77ff;
 }
+
 .sellMenu .sellMenuContent {
   display: flex;
   position: absolute;
@@ -148,6 +148,25 @@
   color: #002f34;
 }
 
+.logout {
+  cursor: pointer
+}
+
+.logout:hover {
+  color: red;
+}
+
+#dropdown-language {
+  color: black;
+  text-decoration: none;
+}
+
+#dropdown-language:hover {
+  color: black;
+  text-decoration: none;
+}
+
+
 /* .sellMenu .sellMenuContent svg {
   align-items: center;
 } */
@@ -155,7 +174,20 @@
   margin-left: 5px;
 }
 
+.isAuth-login {
+  cursor: pointer;
+  background-color: white;
+  border-radius: 4px;
+
+}
+
+.isAuth-login:hover {
+  background-color: rgb(205, 244, 248);
+
+}
+
 @media only screen and (max-width: 700px) {
+
   .placeSearch,
   .productSearch,
   .sellMenu {
