@@ -63,7 +63,7 @@
 .viewParentDiv .rightSection .productDetails {
   /* border: 1px solid black; */
   border: 1px solid #cbc9c9;
-  padding: 6px;
+  padding: 1rem;
   border-radius: 6px;
   margin-bottom: 0.5em;
   width: 100%;
@@ -90,7 +90,8 @@
 .description {
   width: 55vw;
   /* margin-top: 1rem; */
-  margin: 1rem;
+  margin-top: 4rem;
+  margin-bottom: 1rem;
   /* border: 1px solid black; */
   border: 1px solid #cbc9c9;
   border-radius: 6px;

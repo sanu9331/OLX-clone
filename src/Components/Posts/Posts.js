@@ -165,7 +165,8 @@ function Posts() {
               <div className="content">
                 <p className="rate">₹{post.price}</p>
                 <span className="kilometer">{post.name}</span>
-                <p className="name">{post.description}</p>
+                {/* <p className="name">{post.description}</p> */}
+                <p className="name">{post.description.length > 25 ? `${post.description.slice(0, 25)}...` : post.description}</p>
               </div>
               <div className="date">
                 {/* <span>{post.createdAt}</span> */}
@@ -202,8 +203,9 @@ function Posts() {
               </div>
               <div className="content">
                 <p className="rate">₹{post.price}</p>
-                <span className="kilometer">{post.category}</span>
-                <p className="name">{post.name}</p>
+                <span className="kilometer">{post.name}</span>
+                {/* <p className="name">{post.description}</p> */}
+                <p className="name">{post.description.length > 25 ? `${post.description.slice(0, 25)}...` : post.description}</p>
               </div>
               <div className="date">
                 {/* <span>{post.createdAt}</span> */}

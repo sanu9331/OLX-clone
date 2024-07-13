@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './SellerCard.css';
+import { UserContext } from '../../store/UserContext';
 
 const SellerCard = () => {
+    const { user } = useContext(UserContext);
+    console.log('user===', user)
     return (
         <div className="seller-card">
             <div className="seller-info">
@@ -11,7 +14,7 @@ const SellerCard = () => {
                     className="seller-image"
                 />
                 <div className="seller-name">
-                    Fazal
+                    {user.username}
                 </div>
                 <div className="arrow">
                     &gt;
@@ -22,7 +25,7 @@ const SellerCard = () => {
             </button>
             <div className="contact-info">
                 <i className="phone-icon">&#128222;</i>
-                <span className="phone-number">+917510577671</span>
+                <span className="phone-number">{user.phone}</span>
             </div>
         </div>
     );

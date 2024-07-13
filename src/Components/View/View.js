@@ -1,3 +1,4 @@
+//view.js
 import React, { useContext, useEffect, useState } from 'react';
 import './View.css';
 import { PostContext } from '../../store/PostContext';
@@ -5,12 +6,15 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { AuthContext, FirebaseContext } from '../../store/FirebaseContext';
 import SellerCard from './SellerCard';
+import { UserContext } from '../../store/UserContext';
 
 function View() {
   const { postDetails } = useContext(PostContext);
   const { firebase } = useContext(FirebaseContext);
 
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
+  const { user, setUser } = useContext(UserContext);
+  console.log('user view=', user)
 
   const userID = postDetails.userId;
   console.log('user id =', userID);
@@ -67,7 +71,7 @@ function View() {
           <p>{postDetails.category}</p>
           <span>{postDetails.date}</span>
         </div>
-        <div className="contactDetails">
+        {/* <div className="contactDetails">
           <p className='sellerDetails' style={{ fontWeight: '400' }}>Seller details</p>
           {user ? (
             <>
@@ -77,7 +81,7 @@ function View() {
           ) : (
             <p style={{ color: 'mediumseagreen' }}>Loading...</p>
           )}
-        </div>
+        </div> */}
         <SellerCard />
       </div>
     </div >

@@ -57,14 +57,33 @@ const Create = () => {
         <br />
         <label htmlFor="category">Category</label>
         <br />
-        <input
+        {/* <input
           className="input"
           type="text"
           id="category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           name="category"
-        />
+        /> */}
+        <select
+          className="input"
+          id="category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          name="category"
+        >
+          <option value="">Select</option>
+          <option value="Cars">Cars</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Mobile Phones">Mobile Phones</option>
+          <option value="Cameras">Cameras</option>
+          <option value="Bicycles">Bicycles</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Accessories">Accessories</option>
+          <option value="Two-Wheelers">Two-Wheelers</option>
+        </select>
+
         <br />
         <label htmlFor="price">Price</label>
         <br />

@@ -7,6 +7,7 @@ import Create from './Pages/Create';
 import ViewPost from './Pages/ViewPost';
 import { AuthContext, FirebaseContext } from './store/FirebaseContext';
 import Post from './store/PostContext';
+import MyAds from './Pages/MyAds';
 
 
 /**
@@ -34,6 +35,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/create' element={<Create />} />
             <Route path='/viewPost' element={<ViewPost />} />
+            <Route path='/myAds' element={<MyAds />} />
 
           </Routes>
         </Post>

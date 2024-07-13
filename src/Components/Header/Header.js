@@ -79,7 +79,7 @@ function Header() {
               />
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item as={Link} to=""><VscHeartFilled /> my adds</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/MyAds"><VscHeartFilled /> my adds</Dropdown.Item>
               <Dropdown.Item as={Link} to=""><TfiAgenda /> Buy bussiness packages</Dropdown.Item>
               <Dropdown.Item as={Link} to=""><HiExclamationCircle /> help</Dropdown.Item>
               <Dropdown.Item as={Link} to=""><TfiSettings /> Settings</Dropdown.Item>
