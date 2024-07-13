@@ -5,78 +5,103 @@ import { FirebaseContext, AuthContext } from "../../store/FirebaseContext";
 import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
-  const { firebase } = useContext(FirebaseContext)
-  const { isAuthenticated } = useContext(AuthContext)
-  const [name, setName] = useState('')
-  const [category, setCategory] = useState('')
-  const [price, setPrice] = useState('')
-  const [image, setImage] = useState(null)
+  const { firebase } = useContext(FirebaseContext);
+  const { isAuthenticated } = useContext(AuthContext);
+  const [name, setName] = useState('');
+  const [category, setCategory] = useState('');
+  const [price, setPrice] = useState('');
+  const [description, setDescription] = useState('');
+  const [image, setImage] = useState([]);
   const date = new Date();
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    firebase.storage().ref(`/image/${image.name}`).put(image).then(({ ref }) => {
-      ref.getDownloadURL().then((url) => {
-        console.log('url:', url)
-        firebase.firestore().collection('products').add({
-          name,
-          category,
-          price,
-          url,
-          userId: isAuthenticated.uid,
-          createdAt: date.toDateString()
-        })
-        navigate('/');
+  const handleSubmit = async () => {
+    const url = await Promise.all(
+      image.map(async (image) => {
+        const uploadTask = await firebase.storage().ref(`/images/${image.name}`).put(image);
+        return await uploadTask.ref.getDownloadURL();
       })
-    })
-  }
+    );
+
+    firebase.firestore().collection('products').add({
+      name,
+      category,
+      price,
+      url,
+      description,
+      userId: isAuthenticated.uid,
+      createdAt: date.toDateString(),
+    });
+
+    navigate('/');
+  };
+
+  const handleImageChange = (e) => {
+    setImage([...e.target.files]);
+  };
+
   return (
     <Fragment>
       <Header />
-      <card>
-        <div className="centerDiv">
+      <div className="centerDiv">
+        <label htmlFor="name">Name</label>
+        <br />
+        <input
+          className="input"
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          name="name"
+        />
+        <br />
+        <label htmlFor="category">Category</label>
+        <br />
+        <input
+          className="input"
+          type="text"
+          id="category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          name="category"
+        />
+        <br />
+        <label htmlFor="price">Price</label>
+        <br />
+        <input
+          className="input"
+          type="number"
+          id="price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          name="price"
+        />
+        <br />
+        <label htmlFor="description">Description</label>
+        <br />
+        <input
+          className="input"
+          type="text"
+          id="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          name="description"
+        /><br />
 
-          <label htmlFor="fname">Name</label>
-          <br />
-          <input
-            className="input"
-            type="text"
-            id="fname"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            name="Name"
-            defaultValue="John"
-          />
-          <br />
-          <label htmlFor="fname">Category</label>
-          <br />
-          <input
-            className="input"
-            type="text"
-            id="fname"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            name="category"
-            defaultValue="John"
-          />
-          <br />
-          <label htmlFor="fname" >Price</label>
-          <br />
-          <input className="input" type="number" id="fname" value={price}
-            onChange={(e) => setPrice(e.target.value)} name="Price" />
-          <br />
+        {image.length > 0 && (
+          <div>
+            {image.map((image, index) => (
+              <img key={index} alt="Posts" width="200px" height="200px" src={URL.createObjectURL(image)} />
+            ))}
+          </div>
+        )}
 
-          <br />
-          <img alt="Posts" width="200px" height="200px" src={image ? URL.createObjectURL(image) : ''}></img>
-
-          <br />
-          <input onChange={(e) => { setImage(e.target.files[0]) }} type="file" />
-          <br />
-          <button className="uploadBtn" onClick={handleSubmit}>upload and Submit</button>
-
-        </div>
-      </card>
-    </Fragment >
+        <br />
+        <input multiple onChange={handleImageChange} type="file" />
+        <br />
+        <button className="uploadBtn" onClick={handleSubmit}>Upload and Submit</button>
+      </div>
+    </Fragment>
   );
 };
 

@@ -12,6 +12,7 @@ function Posts() {
   const { isAuthenticated } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
 
+
   useEffect(() => {
     firebase.firestore().collection('products').get().then((snapshot) => {
       const allPost = snapshot.docs.map((product) => {
@@ -159,12 +160,12 @@ function Posts() {
                 <Heart />
               </div>
               <div className="image">
-                <img src={post.url} alt={post.name} />
+                <img src={post.url[0]} alt={post.name} />
               </div>
               <div className="content">
                 <p className="rate">₹{post.price}</p>
-                <span className="kilometer">{post.category}</span>
-                <p className="name">{post.name}</p>
+                <span className="kilometer">{post.name}</span>
+                <p className="name">{post.description}</p>
               </div>
               <div className="date">
                 {/* <span>{post.createdAt}</span> */}
@@ -197,7 +198,7 @@ function Posts() {
                 <Heart />
               </div>
               <div className="image">
-                <img src={post.url} alt={post.name} />
+                <img src={post.url[0]} alt={post.name} />
               </div>
               <div className="content">
                 <p className="rate">₹{post.price}</p>
