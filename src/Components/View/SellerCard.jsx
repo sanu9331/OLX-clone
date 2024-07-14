@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './SellerCard.css';
-import { UserContext } from '../../store/UserContext';
 
-const SellerCard = () => {
-    const { user } = useContext(UserContext);
-    console.log('user===', user)
+const SellerCard = ({ currentUser }) => {
+    if (!currentUser) {
+        return <p style={{ color: 'mediumseagreen' }}>Loading...</p>; // Loading state
+    }
+    console.log('currentUser=', currentUser)
     return (
         <div className="seller-card">
             <div className="seller-info">
@@ -14,7 +15,7 @@ const SellerCard = () => {
                     className="seller-image"
                 />
                 <div className="seller-name">
-                    {user.username}
+                    {currentUser.username}
                 </div>
                 <div className="arrow">
                     &gt;
@@ -25,7 +26,7 @@ const SellerCard = () => {
             </button>
             <div className="contact-info">
                 <i className="phone-icon">&#128222;</i>
-                <span className="phone-number">{user.phone}</span>
+                <span className="phone-number">{currentUser.phone}</span>
             </div>
         </div>
     );

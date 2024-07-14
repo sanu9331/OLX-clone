@@ -4,38 +4,28 @@ import './View.css';
 import { PostContext } from '../../store/PostContext';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
-import { AuthContext, FirebaseContext } from '../../store/FirebaseContext';
 import SellerCard from './SellerCard';
 import { UserContext } from '../../store/UserContext';
 
 function View() {
   const { postDetails } = useContext(PostContext);
-  const { firebase } = useContext(FirebaseContext);
 
-  // const [user, setUser] = useState(null);
-  const { user, setUser } = useContext(UserContext);
-  console.log('user view=', user)
+
+  const [currentUser, setCurrentUser] = useState(null);
+  const { allUsers } = useContext(UserContext);
+  console.log('user view=', allUsers)
 
   const userID = postDetails.userId;
   console.log('user id =', userID);
 
   useEffect(() => {
-    firebase.firestore().collection('users').get().then((snapshot) => {
-      const allUsers = snapshot.docs.map((doc) => {
-        return {
-          ...doc.data(),
-          docId: doc.id,
-        }
-      });
-      console.log('all users =', allUsers);
 
-      const currentUser = allUsers.find((user) => user.id === userID);
-      console.log('current user =', currentUser);
-      setUser(currentUser);
-    }).catch(error => {
-      console.error('Error fetching users:', error);
-    });
-  }, [firebase, userID]);
+    const getCurrentUser = allUsers.find((user) => user.id === userID);
+    console.log('current user =', getCurrentUser);
+    // setAllUsers(currentUser);
+    setCurrentUser(getCurrentUser)
+
+  }, [userID]);
 
   const images = postDetails.url.map((url) => ({
     original: url,
@@ -82,7 +72,7 @@ function View() {
             <p style={{ color: 'mediumseagreen' }}>Loading...</p>
           )}
         </div> */}
-        <SellerCard />
+        <SellerCard currentUser={currentUser} setCurrentUser={setCurrentUser} />
       </div>
     </div >
   );
